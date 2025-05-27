@@ -1,20 +1,19 @@
-#include <bits/stdc++.h>
-#include <vector>
 #include <iostream>
 using namespace std;
 
 class Solution
 {
 public:
-    void solveSudoku(vector<vector<char>> &board)
+    void solveSudoku(char board[9][9])
     {
         solve(board);
     }
-    bool solve(vector<vector<char>> &board)
+
+    bool solve(char board[9][9])
     {
-        for (int i = 0; i < board.size(); i++)
+        for (int i = 0; i < 9; i++)
         {
-            for (int j = 0; j < board[0].size(); j++)
+            for (int j = 0; j < 9; j++)
             {
                 if (board[i][j] == '.')
                 {
@@ -23,7 +22,7 @@ public:
                         if (isValid(board, i, j, c))
                         {
                             board[i][j] = c;
-                            if (solve(board) == true)
+                            if (solve(board))
                                 return true;
                             else
                                 board[i][j] = '.';
@@ -36,7 +35,7 @@ public:
         return true;
     }
 
-    bool isValid(vector<vector<char>> &board, int row, int col, char c)
+    bool isValid(char board[9][9], int row, int col, char c)
     {
         for (int i = 0; i < 9; i++)
         {
@@ -53,27 +52,26 @@ public:
 
 int main()
 {
-    // Example Sudoku board
-    vector<vector<char>> board = {
-        {'5', '3', '.', '.', '7', '.', '.', '.', '.'},
-        {'6', '.', '.', '1', '9', '5', '.', '.', '.'},
-        {'.', '9', '8', '.', '.', '.', '.', '6', '.'},
-        {'8', '.', '.', '.', '6', '.', '.', '.', '3'},
-        {'4', '.', '.', '8', '.', '3', '.', '.', '1'},
-        {'7', '.', '.', '.', '2', '.', '.', '.', '6'},
-        {'.', '6', '.', '.', '.', '.', '2', '8', '.'},
-        {'.', '.', '.', '4', '1', '9', '.', '.', '5'},
-        {'.', '.', '.', '.', '8', '.', '.', '7', '9'}};
+    char board[9][9];
+
+    cout << "Enter the Sudoku puzzle (use '.' for empty cells):\n";
+    for (int i = 0; i < 9; i++)
+    {
+        for (int j = 0; j < 9; j++)
+        {
+            cin >> board[i][j];
+        }
+    }
 
     Solution solver;
     solver.solveSudoku(board);
 
-    // Print the solved board
-    for (auto &row : board)
+    cout << "\nSolved Sudoku:\n";
+    for (int i = 0; i < 9; i++)
     {
-        for (char c : row)
+        for (int j = 0; j < 9; j++)
         {
-            cout << c << " ";
+            cout << board[i][j] << " ";
         }
         cout << endl;
     }
